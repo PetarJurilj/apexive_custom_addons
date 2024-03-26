@@ -11,3 +11,15 @@ class HrAttendanceProjectTask(HrAttendance):
             fields=['id', 'name']
         )
         return projects
+    
+    @http.route('/hr_attendance/fetch_tasks', type='json', auth='user')
+    def fetch_tasks(self, project_id):
+        if project_id:
+            project_id = int(project_id)
+            
+        tasks = request.env['project.task'].sudo().search_read(
+            domain=[('project_id', '=', project_id)],
+            fields=['id', 'name']
+        )
+        
+        return tasks

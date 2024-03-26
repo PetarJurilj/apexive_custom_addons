@@ -3,10 +3,10 @@
 <templates xml:space="preserve">
     <t t-name="hr_attendance_task.attendance_menu" t-inherit="hr_attendance.attendance_menu" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('o_att_menu_container')]/div[1]/div[1]" position="before">
+            <!-- Projects -->
             <div class="att_container flex-grow-1 flex-shrink-0">
                 <label for="project_project">Project</label>
-                <!-- <select id="project_project" class="form-control" t-on-change="() => this.onProjectChange()"> -->
-                <select id="project_project" class="detail form-select">
+                <select id="project_project" class="detail form-select" t-on-change="onProjectChange" >
                     <option value="" />
                     <option
                         t-foreach="projects"
@@ -16,6 +16,26 @@
                         t-out="project.name"
                     />
                 </select>
+            </div>
+
+            <!-- Tasks -->
+            <div class="att_container flex-grow-1 flex-shrink-0">
+                <label for="project_task">Task</label>
+                <select id="project_task" class="detail form-select" >
+                    <option
+                        t-foreach="this.state.tasks"
+                        t-as="task"
+                        t-key="task.id"
+                        t-att-value="task.id"
+                        t-out="task.name"
+                    />
+                </select>
+            </div>
+
+            <!-- Description -->
+            <div class="att_container flex-grow-1 flex-shrink-0">
+                <label for="description">Description</label>
+                <textarea id="description" class="detail form-control"></textarea>
             </div>
         </xpath>
     </t>
