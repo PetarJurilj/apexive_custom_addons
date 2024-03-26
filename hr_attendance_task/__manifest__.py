@@ -13,7 +13,7 @@ Add option for task, project and description when Check in/Check out
     'website': 'https://www.yourcompany.com',
 
     'category': 'Human Resources/Attendances',
-    'version': '17.0.2.0.1',
+    'version': '17.0.3.0.1',
 
     'depends': ['hr_attendance', 'project'],
     'data': [

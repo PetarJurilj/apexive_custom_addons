@@ -50,6 +50,35 @@ patch(ActivityMenu.prototype, {
             return
         }
 
-        await super.signInOut();
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(
+                async ({coords: {latitude, longitude}}) => {
+                    await this.rpc("/hr_attendance/systray_check_in_out", {
+                        project_id: this.selectedProject,
+                        task_id: this.selectedTask,
+                        description: this.selectedDescription,
+                        latitude,
+                        longitude,
+                    })
+                    await this.searchReadEmployee()
+                },
+                async err => {
+                    await this.rpc("/hr_attendance/systray_check_in_out", {
+                        project_id: this.selectedProject,
+                        task_id: this.selectedTask,
+                        description: this.selectedDescription,
+                    })
+                    await this.searchReadEmployee()
+                }
+            )
+        }
+        else{
+            await this.rpc("/hr_attendance/systray_check_in_out", {
+                project_id: this.selectedProject,
+                task_id: this.selectedTask,
+                description: this.selectedDescription,
+            })
+            await this.searchReadEmployee()
+        }
     }
 })
