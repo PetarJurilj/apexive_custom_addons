@@ -1,6 +1,8 @@
 /** @odoo-module **/
 import { patch } from "@web/core/utils/patch";
+import { _t } from "@web/core/l10n/translation";
 import { useState } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
 import { ActivityMenu } from "@hr_attendance/components/attendance_menu/attendance_menu";
 
@@ -9,6 +11,7 @@ patch(ActivityMenu.prototype, {
     setup() {
         super.setup();
 
+        this.notification = useService("notification");
         // Initialize projects and tasks
         this.fetchProjects();
         this.state = useState({
@@ -29,5 +32,24 @@ patch(ActivityMenu.prototype, {
     async onProjectChange(event) {
         this.selectedProject = event.target.value;
         await this.fetchTasks();
+    },
+    onTaskChange(event) {
+        this.selectedTask = event.target.value;
+    },
+    onDescriptionChange(event) {
+        this.selectedDescription = event.target.value;
+    },
+
+    /** @override **/
+    async signInOut() {
+        if (!this.selectedProject || !this.selectedTask || !this.selectedDescription) {
+            this.notification.add(
+                _t("Please fill all fields in order to Check in/Check out!"),
+                { type: "danger" }
+            );
+            return
+        }
+
+        await super.signInOut();
     }
 })

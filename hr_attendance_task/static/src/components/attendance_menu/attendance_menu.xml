@@ -21,7 +21,8 @@
             <!-- Tasks -->
             <div class="att_container flex-grow-1 flex-shrink-0">
                 <label for="project_task">Task</label>
-                <select id="project_task" class="detail form-select" >
+                <select id="project_task" class="detail form-select" t-on-change="onTaskChange" >
+                    <option value="" />
                     <option
                         t-foreach="this.state.tasks"
                         t-as="task"
@@ -35,7 +36,7 @@
             <!-- Description -->
             <div class="att_container flex-grow-1 flex-shrink-0">
                 <label for="description">Description</label>
-                <textarea id="description" class="detail form-control"></textarea>
+                <textarea id="description" class="detail form-control" t-on-change="onDescriptionChange"></textarea>
             </div>
         </xpath>
     </t>
