@@ -79,7 +79,7 @@ class HrAttendanceProjectTask(HrAttendance):
     # OVERRIDE
     # -------------------------------------------------------------------------
     @http.route('/hr_attendance/systray_check_in_out', type="json", auth="user")
-    def systray_attendance(self, project_id=None, task_id=None, description=None, latitude=False, longitude=False):
+    def systray_attendance(self, latitude=False, longitude=False, project_id=None, task_id=None, description=None):
         employee = request.env.user.employee_id
         project_id = int(project_id)
         task_id = int(task_id)
