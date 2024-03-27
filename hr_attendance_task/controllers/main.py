@@ -6,6 +6,12 @@ from odoo.addons.hr_attendance.controllers.main import HrAttendance
 class HrAttendanceProjectTask(HrAttendance):
     @http.route('/hr_attendance/fetch_projects', type='json', auth='user')
     def fetch_projects(self):
+        """
+        Fetches a list of projects.
+
+        :return:    A list of projects with their IDs and names.
+        :rtype:     list[dict]
+        """
         projects = request.env['project.project'].sudo().search_read(
             domain=[],
             fields=['id', 'name']
@@ -14,6 +20,15 @@ class HrAttendanceProjectTask(HrAttendance):
 
     @http.route('/hr_attendance/fetch_tasks', type='json', auth='user')
     def fetch_tasks(self, project_id):
+        """
+        Fetches tasks associated with a project.
+
+        :param project_id:  The ID of the :class:`project.project` in str.
+        :type project_id:   str
+
+        :return:            A list of tasks with their IDs and names.
+        :rtype:             list[dict]
+        """
         if project_id:
             project_id = int(project_id)
 

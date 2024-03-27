@@ -11,5 +11,9 @@ class HrAttendance(models.Model):
 
     @api.onchange('project_id')
     def _onchange_project_id(self):
-        """Prevent tasks from another project"""
+        """
+        Clears the task selection to prevent tasks from another project.
+
+        :return: None
+        """
         self.task_id = None
