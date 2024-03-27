@@ -12,11 +12,16 @@ patch(ActivityMenu.prototype, {
         super.setup();
 
         this.notification = useService("notification");
+
+        // Check In
         // Initialize projects and tasks
         this.fetchProjects();
         this.state = useState({
             tasks: [],
         });
+
+        // Check Out
+        this.getCurrentData()
     },
 
     async fetchProjects() {
@@ -38,6 +43,23 @@ patch(ActivityMenu.prototype, {
     },
     onDescriptionChange(event) {
         this.selectedDescription = event.target.value;
+    },
+
+    async getCurrentData() {
+        const currentData = await this.rpc("/hr_attendance/get_current_data");
+
+        if (currentData.project) {
+            this.selectedProject = currentData.project.id;
+            this.currentProject = currentData.project.name;
+        }
+        if (currentData.task) {
+            this.selectedTask = currentData.task.id;
+            this.currentTask = currentData.task.name;
+        }
+        if (currentData.description) {
+            this.selectedDescription = currentData.description;
+            this.currentDescription = currentData.description;
+        }
     },
 
     /** @override **/

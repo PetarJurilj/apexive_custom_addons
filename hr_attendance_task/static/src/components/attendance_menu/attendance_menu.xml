@@ -5,38 +5,52 @@
         <xpath expr="//div[hasclass('o_att_menu_container')]/div[1]/div[1]" position="before">
             <!-- Projects -->
             <div class="att_container flex-grow-1 flex-shrink-0">
-                <label for="project_project">Project</label>
-                <select id="project_project" class="detail form-select" t-on-change="onProjectChange" >
-                    <option value="" />
-                    <option
-                        t-foreach="projects"
-                        t-as="project"
-                        t-key="project.id"
-                        t-att-value="project.id"
-                        t-out="project.name"
-                    />
-                </select>
+                <t t-if="!this.currentProject">
+                    <label for="project_project">Project</label>
+                    <select id="project_project" class="detail form-select" t-on-change="onProjectChange" >
+                        <option value="" />
+                        <option
+                            t-foreach="projects"
+                            t-as="project"
+                            t-key="project.id"
+                            t-att-value="project.id"
+                            t-out="project.name"
+                        />
+                    </select>
+                </t>
+                <t t-else="">
+                    <!-- We don't want that user select project during check out, since it's already selected during check in -->
+                    <div>Project in progress</div>
+                    <span class="detail form-select" t-esc="this.currentProject" />
+                </t>
             </div>
 
             <!-- Tasks -->
             <div class="att_container flex-grow-1 flex-shrink-0">
-                <label for="project_task">Task</label>
-                <select id="project_task" class="detail form-select" t-on-change="onTaskChange" >
-                    <option value="" />
-                    <option
-                        t-foreach="this.state.tasks"
-                        t-as="task"
-                        t-key="task.id"
-                        t-att-value="task.id"
-                        t-out="task.name"
-                    />
-                </select>
+                <t t-if="!this.currentTask">
+                    <label for="project_task">Task</label>
+                    <select id="project_task" class="detail form-select" t-on-change="onTaskChange" >
+                        <option value="" />
+                        <option
+                            t-foreach="this.state.tasks"
+                            t-as="task"
+                            t-key="task.id"
+                            t-att-value="task.id"
+                            t-out="task.name"
+                        />
+                    </select>
+                </t>
+                <t t-else="">
+                    <!-- We don't want that user select task during check out, since it's already selected during check in -->
+                    <div>Task in progress</div>
+                    <span class="detail form-select" t-esc="this.currentTask" />
+                </t>
             </div>
 
             <!-- Description -->
             <div class="att_container flex-grow-1 flex-shrink-0">
                 <label for="description">Description</label>
-                <textarea id="description" class="detail form-control" t-on-change="onDescriptionChange"></textarea>
+                <textarea id="description" t-att-value="this.currentDescription" class="detail form-control" t-on-change="onDescriptionChange"></textarea>
             </div>
         </xpath>
     </t>
