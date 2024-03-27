@@ -90,10 +90,10 @@ class HrAttendanceProjectTask(HrAttendance):
             longitude=longitude
         )
         employee._attendance_action_change(
+            geo_ip_response,
             project_id,
             task_id,
             description,
-            geo_ip_response,
         )
 
         return self._get_employee_info_response(employee)
