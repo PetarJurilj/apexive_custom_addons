@@ -23,6 +23,9 @@ Add option for task, project and description when Check in/Check out
         'web.assets_backend': [
             'hr_attendance_task/static/src/components/**/*',
         ],
+        'web.qunit_suite_tests': [
+            'hr_attendance_task/static/tests/*.js',
+        ],
     },
     'license': 'LGPL-3',
 }
